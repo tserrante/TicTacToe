@@ -2,46 +2,50 @@ package com.mygdx.game.tictactoe;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.GL20;
+
+import java.util.ArrayList;
 
 public class TicTacToe extends ApplicationAdapter
 {
-	// music and textures
 
-	private Sound placePieceSound;
-	private Sound roundOverSound;
-	private Music gameMusic;
-	// camera and spritebatch
-	private OrthographicCamera camera;
+	private ShapeRenderer shape;
+	//private Square gameBoard;
+	private GameBoard board;
+	private ArrayList<Square> squares = new ArrayList<>();
 
-
-
+	// variables for creating list of squares
 
 	@Override
 	public void create()
 	{
+		shape = new ShapeRenderer();
+		//gameBoard = new Square();
 
+		for(int i = 1; i <= 9; i++)
+		{
+			// build first row
+			if(i <= 3 )
+			{
+				Square s = new Square(GameBoard.getXoffset() + (i * GameBoard.getSquareWidth()),
+																			GameBoard.getYoffset());
+				squares.add(s);
+			}
+			if(i > 3 && i <= 6)
+			{
+				Square s = new Square(GameBoard.getXoffset() + (GameBoard.getSquareWidth() * (i-3)),
+						GameBoard.getYoffset() + GameBoard.getSquareHeight());
+				squares.add(s);
+			}
+			if(i > 6)
+			{
+				Square s = new Square(GameBoard.getXoffset() + (GameBoard.getSquareWidth() * (i-6)),
+						GameBoard.getYoffset() + (GameBoard.getSquareHeight() * 2));
+				squares.add(s);
+			}
 
-		// load the sound effects for placing a piece and ending a round
-		placePieceSound = Gdx.audio.newSound(Gdx.files.internal("bell.mp3"));
-		roundOverSound = Gdx.audio.newSound(Gdx.files.internal("bell.mp3"));
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("gameMusic.mp3"));
-
-		// loop game music
-		gameMusic.setLooping(true);
-		gameMusic.play();
-
-		// create the camera
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
-
+		}
 
 	}
 
@@ -49,28 +53,16 @@ public class TicTacToe extends ApplicationAdapter
 	@Override
 	public void render()
 	{
-		// clear the screen
-		ScreenUtils.clear(0, 0, 0.2f, 1);
-		// update the camera, once per frame
-		camera.update();
-		// use the coordinates specified by the camera,
-		// where camera.combined is a matrix.
-		//batch.setProjectionMatrix(camera.combined);
-		// sprite batch records all drawing commands between begin and end
-
-
-		//if(r_piece_x.overlaps(r_board))
-		//{
-			placePieceSound.play();
-		//}
-
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		shape.begin(ShapeRenderer.ShapeType.Line);
+		//gameBoard.draw(shape);
+		for(Square s : squares)
+			s.draw(shape);
+		shape.end();
 	}
 	@Override
 	public void dispose()
 	{
-		placePieceSound.dispose();
-		roundOverSound.dispose();
-		gameMusic.dispose();
 
 	}
 }
