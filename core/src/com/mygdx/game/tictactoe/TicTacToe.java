@@ -1,29 +1,18 @@
 package com.mygdx.game.tictactoe;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.math.Rectangle;
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
-public class TicTacToe extends ApplicationAdapter
+public class TicTacToe extends Game
 {
-
-	// music and textures
-	private Texture boardImage;
-	private Rectangle board;
-
-	private Texture pieceImage_x;
-	private Rectangle pieceX;
-
-
+	private Board board;
+	private Player player1;
 	private Sound placePieceSound;
 	private Sound roundOverSound;
 	private Music gameMusic;
@@ -37,15 +26,10 @@ public class TicTacToe extends ApplicationAdapter
 	@Override
 	public void create()
 	{
-		// load the images for the board and game pieces
-		boardImage = new Texture(Gdx.files.internal("board.png"));
-		board = new Rectangle();
 
-		board.x = (Gdx.graphics.getWidth() / 2) - (boardImage.getWidth() / 2);
-		board.y = (Gdx.graphics.getHeight() / 2) - (boardImage.getHeight() / 2);
+		board = new Board();
+		player1 = new Player('o', "Player One");
 
-		pieceImage_x = new Texture(Gdx.files.internal("x.png"));
-		pieceX = new Rectangle();
 
 		// load the sound effects for placing a piece and ending a round
 		placePieceSound = Gdx.audio.newSound(Gdx.files.internal("bell.mp3"));
@@ -78,13 +62,13 @@ public class TicTacToe extends ApplicationAdapter
 			touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			pieceX.x = touchPos.x - 64 / 2;
-			pieceX.y = touchPos.y - 64 / 2;
+			player1.setPieceRect_H(touchPos.x);
+			player1.setPieceRect_V(touchPos.y);
 		}
 
 		batch.begin();
-		batch.draw(boardImage, board.x, board.y);
-		batch.draw(pieceImage_x, pieceX.x, pieceX.y);
+		batch.draw(board.getBoardImage(), board.getBoardPos_H(), board.getBoardPos_V());
+		batch.draw(player1.getPieceImage(), player1.getPieceRect_H(), player1.getPieceRect_V());
 		batch.end();
 
 
@@ -95,11 +79,18 @@ public class TicTacToe extends ApplicationAdapter
 	@Override
 	public void dispose()
 	{
-		boardImage.dispose();
-		pieceImage_x.dispose();
+		board.disposeBoardImage();
+		player1.disposePieceImage();
 		placePieceSound.dispose();
 		roundOverSound.dispose();
 		gameMusic.dispose();
 		batch.dispose();
 	}
+
+	@Override
+	public void resize(int width, int height)
+	{
+		super.resize(width, height);
+	}
+
 }

@@ -1,15 +1,25 @@
 package com.mygdx.game.tictactoe;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+
 public class Player
 {
     char piece;
     String name;
 
+    private Texture pieceImage;
+    private Rectangle pieceRect;
+
     Player() 
     { 
         piece = ' '; 
         name = null;
+
+        pieceImage = null;
+        pieceRect = null;
     }
 
     Player(char piece, String name)
@@ -25,6 +35,13 @@ public class Player
         }
 
         this.name = name;
+        if(this.piece == 'X')
+            pieceImage = new Texture(Gdx.files.internal("x.png"));
+        else
+            pieceImage = new Texture(Gdx.files.internal("o.png"));
+
+        pieceRect = new Rectangle();
+
     }
 
     public char getPiece() {return piece;}
@@ -49,5 +66,31 @@ public class Player
     {
         board.setPosition(this, index);
     }
-   
+
+    public void setPieceRect_H(float x)
+    {
+        pieceRect.x = x - 32;
+    }
+    public void setPieceRect_V(float y)
+    {
+        pieceRect.y = y - 32;
+    }
+    public float getPieceRect_H()
+    {
+        return pieceRect.x;
+    }
+    public float getPieceRect_V()
+    {
+        return pieceRect.y;
+    }
+
+    public Texture getPieceImage()
+    {
+        return pieceImage;
+    }
+
+    public void disposePieceImage()
+    {
+        pieceImage.dispose();
+    }
 }

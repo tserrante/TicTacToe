@@ -1,11 +1,19 @@
 package com.mygdx.game.tictactoe;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+
 public class Board
 {
     static final int BOARD_SIZE = 9;
     static final int ASCII_OFFSET = 49;
     private char[] board;
+
+    private Texture boardImage;
+    private Rectangle boardRect;
+
     
     Board()
     {
@@ -18,6 +26,11 @@ public class Board
             tempBoardMarker = ASCII_OFFSET + i;
             board[i] = (char) tempBoardMarker;
         }
+        // create texture and rectangle for board
+        boardImage = new Texture(Gdx.files.internal("board.png"));
+        boardRect = new Rectangle();
+        boardRect.x = (Gdx.graphics.getWidth() / 2) - (boardImage.getWidth() / 2);
+        boardRect.y = (Gdx.graphics.getHeight() / 2) - (boardImage.getHeight() / 2);
     }
 
     public char getPosition(int index)
@@ -52,5 +65,27 @@ public class Board
                 return false;
         }
         return true;
+    }
+
+    /**
+     * The following methods apply to the board texture only
+     */
+
+    public Texture getBoardImage()
+    {
+        return boardImage;
+    }
+
+    public float getBoardPos_H()
+    {
+        return boardRect.x;
+    }
+    public float getBoardPos_V()
+    {
+        return boardRect.y;
+    }
+
+    public void disposeBoardImage() {
+        boardImage.dispose();
     }
 }
