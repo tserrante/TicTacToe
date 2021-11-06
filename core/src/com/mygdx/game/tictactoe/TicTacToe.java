@@ -21,7 +21,7 @@ public class TicTacToe extends Game
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 
-	private Vector3 touchPos;
+	private final Vector3 touchPos = new Vector3();
 
 	@Override
 	public void create()
@@ -59,7 +59,6 @@ public class TicTacToe extends Game
 
 		if(Gdx.input.isTouched())
 		{
-			touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
 			player1.setPieceRect_H(touchPos.x);

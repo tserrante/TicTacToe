@@ -14,6 +14,7 @@ public class Board
     private Texture boardImage;
     private Rectangle boardRect;
 
+    private Rectangle[] boardCells;
     
     Board()
     {
@@ -31,6 +32,21 @@ public class Board
         boardRect = new Rectangle();
         boardRect.x = (Gdx.graphics.getWidth() / 2) - (boardImage.getWidth() / 2);
         boardRect.y = (Gdx.graphics.getHeight() / 2) - (boardImage.getHeight() / 2);
+
+        initializeBoardCells();
+    }
+
+    private void initializeBoardCells()
+    {
+        boardCells = new Rectangle[9];
+
+        for(int i = 0; i < boardCells.length; i++ )
+        {
+            if(i <= 3)
+            {
+
+            }
+        }
     }
 
     public char getPosition(int index)
