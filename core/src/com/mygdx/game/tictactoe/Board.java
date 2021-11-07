@@ -30,9 +30,8 @@ public class Board
         // create texture and rectangle for board
         boardImage = new Texture(Gdx.files.internal("board.png"));
         boardRect = new Rectangle();
-        boardRect.x = (Gdx.graphics.getWidth() / 2) - (boardImage.getWidth() / 2);
-        boardRect.y = (Gdx.graphics.getHeight() / 2) - (boardImage.getHeight() / 2);
-
+        boardRect.x = (float)(Gdx.graphics.getWidth() / 2) - (float)(boardImage.getWidth() / 2);
+        boardRect.y = (float)(Gdx.graphics.getHeight() / 2) - (float)(boardImage.getHeight() / 2);
         initializeBoardCells();
     }
 
@@ -42,10 +41,26 @@ public class Board
 
         for(int i = 0; i < boardCells.length; i++ )
         {
-            if(i <= 3)
+            if(i < 3)
             {
-
+                boardCells[i] = new Rectangle();
+                boardCells[i].setX(boardRect.x + ((float)(boardImage.getWidth() / 3) * i));
+                boardCells[i].setY(boardRect.y + ((0.66f)*boardImage.getHeight()));
             }
+            if(i >= 3 && i < 6)
+            {
+                boardCells[i] = new Rectangle();
+                boardCells[i].setX(boardRect.x + ((float)(boardImage.getWidth() / 3) * (i-3)));
+                boardCells[i].setY(boardRect.y + ((0.34f)*boardImage.getHeight()));
+            }
+            if(i >= 6)
+            {
+                boardCells[i] = new Rectangle();
+                boardCells[i].setX(boardRect.x + ((float)(boardImage.getWidth() / 3) * (i-6)));
+                boardCells[i].setY(boardRect.y);
+            }
+            boardCells[i].width = (float)(boardImage.getWidth() / 3);
+            boardCells[i].height = (float)(boardImage.getHeight() / 3);
         }
     }
 
@@ -103,5 +118,27 @@ public class Board
 
     public void disposeBoardImage() {
         boardImage.dispose();
+    }
+
+    public Rectangle getBoardCell(int i)
+    {
+        return boardCells[i];
+    }
+
+    public float getCellX(int i)
+    {
+        return boardCells[i].x;
+    }
+    public float getCellY(int i)
+    {
+        return boardCells[i].y;
+    }
+    public float getCellWidth(int i)
+    {
+        return boardCells[i].getWidth();
+    }
+    public float getCellHeight(int i)
+    {
+        return boardCells[i].getHeight();
     }
 }

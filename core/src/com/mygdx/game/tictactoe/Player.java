@@ -83,7 +83,10 @@ public class Player
     {
         return pieceRect.y;
     }
-
+    public Rectangle getPieceRect()
+    {
+        return pieceRect;
+    }
     public Texture getPieceImage()
     {
         return pieceImage;
