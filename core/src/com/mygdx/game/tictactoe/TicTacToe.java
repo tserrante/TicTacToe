@@ -6,16 +6,21 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicTacToe extends Game
 {
 	private Board board;
 	private Player player1;
+	private List<Piece> pieces;
+
 	private Sound placePieceSound;
 	private Sound roundOverSound;
 	private Music gameMusic;
@@ -33,7 +38,7 @@ public class TicTacToe extends Game
 
 		board = new Board();
 		player1 = new Player('o', "Player One");
-
+		pieces = new ArrayList<>();
 		shape = new ShapeRenderer();
 
 		// load the sound effects for placing a piece and ending a round
@@ -67,55 +72,26 @@ public class TicTacToe extends Game
 		{
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			player1.setPieceRectX(touchPos.x);
-			player1.setPieceRectY(touchPos.y);
+			pieces.add(new Piece(player1, touchPos.x, touchPos.y));
 		}
 
-		for(int i = 0; i < 9; i++)
-		{
-			/*
-			if(player1.getPieceRect().overlaps(board.getBoardCell(i)))
-			{
-				System.out.println("Cell " + i + " is overlapped.");
-				ScreenUtils.clear(0, 0, 0, 1);
-			}
-			 */
-
-			if((board.getCellX(i) < player1.getPieceRectX()) && (board.getCellY(i) < player1.getPieceRectY())
-				&& (board.getCellX(i) + board.getCellWidth(i) > player1.getPieceRectX() + player1.getPieceRectWidth())
-				&& (board.getCellY(i) + board.getCellHeight(i)) > player1.getPieceRectY() + player1.getPieceRectHeight())
-			{
-				System.out.println("Cell " + i + " is overlapped.");
-				ScreenUtils.clear(0, 0, 0, 1);
-			}
-		}
-
+		overlapDetection();
 
 		batch.begin();
+		// draw board
 		batch.draw(board.getBoardImage(), board.getBoardPos_H(), board.getBoardPos_V());
-
-		batch.draw(player1.getPieceImage(), player1.getPieceRectX(), player1.getPieceRectY());
+		// draw pieces played on board
+		for (Piece piece : pieces) {
+			batch.draw(piece.getImage(), piece.getX(), piece.getY());
+		}
 		batch.end();
-
-
-		shape.begin(ShapeRenderer.ShapeType.Line);
-		shape.setColor(Color.BLACK);
-		for(int i = 0; i < 9; i++)
-			shape.rect(board.getCellX(i), board.getCellY(i), board.getCellWidth(i), board.getCellHeight(i));
-		shape.end();
-
-
-
-
-
-
-
 	}
 	@Override
 	public void dispose()
 	{
 		board.disposeBoardImage();
-		player1.disposePieceImage();
+		for(Piece p : pieces)
+			p.disposeImage();
 		placePieceSound.dispose();
 		roundOverSound.dispose();
 		gameMusic.dispose();
@@ -128,4 +104,17 @@ public class TicTacToe extends Game
 		super.resize(width, height);
 	}
 
+	public void overlapDetection()
+	{
+		for(int i = 0; i < 9; i++)
+		{
+			for(Piece p : pieces) {
+				if (p.getRect().overlaps(board.getBoardCell(i))) {
+					System.out.println("Cell " + i + " is overlapped.");
+					ScreenUtils.clear(0, 0, 0, 1);
+				}
+			}
+		}
+	}
 }
+

@@ -5,21 +5,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player
 {
     char piece;
     String name;
 
-    private Texture pieceImage;
-    private Rectangle pieceRect;
 
+    private List<Rectangle> playerPieces;
     Player() 
     { 
         piece = ' '; 
         name = null;
 
-        pieceImage = null;
-        pieceRect = null;
+        playerPieces = new ArrayList<>();
     }
 
     Player(char piece, String name)
@@ -33,14 +34,9 @@ public class Player
             System.out.println("Invalid Selection, setting to empty character");
             piece = ' ';
         }
-
         this.name = name;
-        if(this.piece == 'X')
-            pieceImage = new Texture(Gdx.files.internal("x.png"));
-        else
-            pieceImage = new Texture(Gdx.files.internal("o.png"));
 
-        pieceRect = new Rectangle();
+        playerPieces = new ArrayList<>();
 
     }
 
@@ -67,36 +63,18 @@ public class Player
         board.setPosition(this, index);
     }
 
-    public void setPieceRectX(float x)
-    {
-        pieceRect.x = x - 32;
-    }
-    public void setPieceRectY(float y)
-    {
-        pieceRect.y = y - 32;
-    }
-    public float getPieceRectX()
-    {
-        return pieceRect.x;
-    }
-    public float getPieceRectY()
-    {
-        return pieceRect.y;
-    }
-    public float getPieceRectWidth(){return pieceRect.getWidth();}
-    public float getPieceRectHeight(){return pieceRect.getHeight();}
 
-    public Rectangle getPieceRect()
+    public void playPiece(Rectangle r)
     {
-        return pieceRect;
+        playerPieces.add(r);
     }
-    public Texture getPieceImage()
+    public Rectangle getPlayedPiece(int i)
     {
-        return pieceImage;
+        return playerPieces.get(i);
     }
 
-    public void disposePieceImage()
+    public int getPieceListSize()
     {
-        pieceImage.dispose();
+        return playerPieces.size();
     }
 }
