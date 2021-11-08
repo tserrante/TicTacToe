@@ -3,12 +3,12 @@ package com.mygdx.game.tictactoe;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class Piece
 {
     private Texture texture;
     private Rectangle rect;
-
 
     public Piece(Player p, float x, float y)
     {
@@ -23,6 +23,21 @@ public class Piece
 
         rect = new Rectangle(x - 32, y - 32, texture.getWidth(), texture.getHeight());
 
+
+    }
+
+    public Piece(Player p, Rectangle r)
+    {
+        if(Character.toUpperCase(p.getPiece()) == 'X')
+        {
+            texture = new Texture(Gdx.files.internal("x.png"));
+        }
+        else
+        {
+            texture = new Texture(Gdx.files.internal("o.png"));
+        }
+
+        rect = new Rectangle(r);
 
     }
 

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -20,6 +20,7 @@ public class TicTacToe extends Game
 	private Board board;
 	private Player player1;
 	private List<Piece> pieces;
+	private Vector2 centerInBoard;
 
 	private Sound placePieceSound;
 	private Sound roundOverSound;
@@ -40,7 +41,7 @@ public class TicTacToe extends Game
 		player1 = new Player('o', "Player One");
 		pieces = new ArrayList<>();
 		shape = new ShapeRenderer();
-
+		centerInBoard = new Vector2();
 		// load the sound effects for placing a piece and ending a round
 		placePieceSound = Gdx.audio.newSound(Gdx.files.internal("bell.mp3"));
 		roundOverSound = Gdx.audio.newSound(Gdx.files.internal("bell.mp3"));
@@ -72,19 +73,38 @@ public class TicTacToe extends Game
 		{
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			pieces.add(new Piece(player1, touchPos.x, touchPos.y));
+			Piece tempPiece = new Piece(player1, touchPos.x, touchPos.y);
+			Piece toList = null;
+			for(int i = 0; i < 9; i++)
+			{
+				if(tempPiece.getRect().overlaps(board.getBoardCell(i)))
+				{
+					toList = new Piece(player1, board.getBoardCell(i));
+					board.getBoardCell(i).getCenter(centerInBoard);
+					toList.getRect().setCenter(centerInBoard);
+				}
+			}
+			if(toList != null)
+				pieces.add(toList);
+
 		}
 
 		overlapDetection();
 
 		batch.begin();
 		// draw board
-		batch.draw(board.getBoardImage(), board.getBoardPos_H(), board.getBoardPos_V());
+		batch.draw(board.getBoardImage(), board.getX(), board.getY());
 		// draw pieces played on board
 		for (Piece piece : pieces) {
 			batch.draw(piece.getImage(), piece.getX(), piece.getY());
 		}
 		batch.end();
+
+		shape.begin(ShapeRenderer.ShapeType.Line);
+		shape.setColor(Color.BLACK);
+		for(int i = 0; i < 9; i++)
+			shape.rect(board.getCellX(i), board.getCellY(i), board.getCellWidth(i), board.getCellHeight(i));
+		shape.end();
 	}
 	@Override
 	public void dispose()

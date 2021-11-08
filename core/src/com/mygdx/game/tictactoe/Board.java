@@ -107,11 +107,11 @@ public class Board
         return boardImage;
     }
 
-    public float getBoardPos_H()
+    public float getX()
     {
         return boardRect.x;
     }
-    public float getBoardPos_V()
+    public float getY()
     {
         return boardRect.y;
     }
