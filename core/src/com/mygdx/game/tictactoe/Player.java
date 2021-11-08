@@ -14,13 +14,11 @@ public class Player
     String name;
 
 
-    private List<Rectangle> playerPieces;
+
     Player() 
     { 
         piece = ' '; 
         name = null;
-
-        playerPieces = new ArrayList<>();
     }
 
     Player(char piece, String name)
@@ -36,7 +34,6 @@ public class Player
         }
         this.name = name;
 
-        playerPieces = new ArrayList<>();
 
     }
 
@@ -63,18 +60,4 @@ public class Player
         board.setPosition(this, index);
     }
 
-
-    public void playPiece(Rectangle r)
-    {
-        playerPieces.add(r);
-    }
-    public Rectangle getPlayedPiece(int i)
-    {
-        return playerPieces.get(i);
-    }
-
-    public int getPieceListSize()
-    {
-        return playerPieces.size();
-    }
 }

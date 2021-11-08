@@ -19,8 +19,7 @@ public class TicTacToe extends Game
 {
 	private Board board;
 	private Player player1;
-	private List<Piece> pieces;
-	private Vector2 centerInBoard;
+
 
 	private Sound placePieceSound;
 	private Sound roundOverSound;
@@ -39,9 +38,8 @@ public class TicTacToe extends Game
 
 		board = new Board();
 		player1 = new Player('o', "Player One");
-		pieces = new ArrayList<>();
+
 		shape = new ShapeRenderer();
-		centerInBoard = new Vector2();
 		// load the sound effects for placing a piece and ending a round
 		placePieceSound = Gdx.audio.newSound(Gdx.files.internal("bell.mp3"));
 		roundOverSound = Gdx.audio.newSound(Gdx.files.internal("bell.mp3"));
@@ -68,50 +66,31 @@ public class TicTacToe extends Game
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
-
+		/*
 		if(Gdx.input.isTouched())
 		{
-			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			camera.unproject(touchPos);
-			Piece tempPiece = new Piece(player1, touchPos.x, touchPos.y);
-			Piece toList = null;
-			for(int i = 0; i < 9; i++)
-			{
-				if(tempPiece.getRect().overlaps(board.getBoardCell(i)))
-				{
-					toList = new Piece(player1, board.getBoardCell(i));
-					board.getBoardCell(i).getCenter(centerInBoard);
-					toList.getRect().setCenter(centerInBoard);
-				}
-			}
-			if(toList != null)
-				pieces.add(toList);
 
 		}
+		*/
 
-		overlapDetection();
 
 		batch.begin();
 		// draw board
-		batch.draw(board.getBoardImage(), board.getX(), board.getY());
+		//batch.draw();
 		// draw pieces played on board
-		for (Piece piece : pieces) {
-			batch.draw(piece.getImage(), piece.getX(), piece.getY());
-		}
+
 		batch.end();
 
 		shape.begin(ShapeRenderer.ShapeType.Line);
 		shape.setColor(Color.BLACK);
 		for(int i = 0; i < 9; i++)
-			shape.rect(board.getCellX(i), board.getCellY(i), board.getCellWidth(i), board.getCellHeight(i));
+			//shape.line();
 		shape.end();
 	}
 	@Override
 	public void dispose()
 	{
-		board.disposeBoardImage();
-		for(Piece p : pieces)
-			p.disposeImage();
+
 		placePieceSound.dispose();
 		roundOverSound.dispose();
 		gameMusic.dispose();
@@ -124,17 +103,6 @@ public class TicTacToe extends Game
 		super.resize(width, height);
 	}
 
-	public void overlapDetection()
-	{
-		for(int i = 0; i < 9; i++)
-		{
-			for(Piece p : pieces) {
-				if (p.getRect().overlaps(board.getBoardCell(i))) {
-					System.out.println("Cell " + i + " is overlapped.");
-					ScreenUtils.clear(0, 0, 0, 1);
-				}
-			}
-		}
-	}
+
 }
 
