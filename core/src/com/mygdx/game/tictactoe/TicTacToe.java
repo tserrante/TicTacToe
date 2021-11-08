@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -66,13 +67,23 @@ public class TicTacToe extends Game
 		{
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			player1.setPieceRect_H(touchPos.x);
-			player1.setPieceRect_V(touchPos.y);
+			player1.setPieceRectX(touchPos.x);
+			player1.setPieceRectY(touchPos.y);
 		}
 
 		for(int i = 0; i < 9; i++)
 		{
+			/*
 			if(player1.getPieceRect().overlaps(board.getBoardCell(i)))
+			{
+				System.out.println("Cell " + i + " is overlapped.");
+				ScreenUtils.clear(0, 0, 0, 1);
+			}
+			 */
+
+			if((board.getCellX(i) < player1.getPieceRectX()) && (board.getCellY(i) < player1.getPieceRectY())
+				&& (board.getCellX(i) + board.getCellWidth(i) > player1.getPieceRectX() + player1.getPieceRectWidth())
+				&& (board.getCellY(i) + board.getCellHeight(i)) > player1.getPieceRectY() + player1.getPieceRectHeight())
 			{
 				System.out.println("Cell " + i + " is overlapped.");
 				ScreenUtils.clear(0, 0, 0, 1);
@@ -83,7 +94,7 @@ public class TicTacToe extends Game
 		batch.begin();
 		batch.draw(board.getBoardImage(), board.getBoardPos_H(), board.getBoardPos_V());
 
-		batch.draw(player1.getPieceImage(), player1.getPieceRect_H(), player1.getPieceRect_V());
+		batch.draw(player1.getPieceImage(), player1.getPieceRectX(), player1.getPieceRectY());
 		batch.end();
 
 

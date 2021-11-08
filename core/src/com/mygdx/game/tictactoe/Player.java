@@ -67,22 +67,25 @@ public class Player
         board.setPosition(this, index);
     }
 
-    public void setPieceRect_H(float x)
+    public void setPieceRectX(float x)
     {
         pieceRect.x = x - 32;
     }
-    public void setPieceRect_V(float y)
+    public void setPieceRectY(float y)
     {
         pieceRect.y = y - 32;
     }
-    public float getPieceRect_H()
+    public float getPieceRectX()
     {
         return pieceRect.x;
     }
-    public float getPieceRect_V()
+    public float getPieceRectY()
     {
         return pieceRect.y;
     }
+    public float getPieceRectWidth(){return pieceRect.getWidth();}
+    public float getPieceRectHeight(){return pieceRect.getHeight();}
+
     public Rectangle getPieceRect()
     {
         return pieceRect;
