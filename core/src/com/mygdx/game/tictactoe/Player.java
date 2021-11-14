@@ -1,63 +1,56 @@
 package com.mygdx.game.tictactoe;
 
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player
 {
-    char piece;
-    String name;
+    private static final TextureAtlas pieceAtlas = new TextureAtlas("pieceSprites.txt");;
+    private Sprite piece;
 
+    private static float pieceWidth = 64;
+    private static float pieceHeight = 64;
 
+    private float pieceX, pieceY;
 
-    Player() 
-    { 
-        piece = ' '; 
-        name = null;
-    }
-
-    Player(char piece, String name)
+    Player(String pieceSelect)
     {
-        if(Character.toUpperCase(piece) == 'X' || Character.toUpperCase(piece) == 'O')
-        {
-            this.piece = Character.toUpperCase(piece);
-        }
+        // set the users piece here
+        //Array<TextureAtlas.AtlasRegion> regions = pieceAtlas.getRegions();
+        if(pieceSelect.toLowerCase().equals("x") || pieceSelect.toLowerCase().equals("o"))
+            piece = new Sprite(pieceAtlas.findRegion(pieceSelect));
         else
-        {
-            System.out.println("Invalid Selection, setting to empty character");
-            piece = ' ';
-        }
-        this.name = name;
+            piece = null;
 
-
+        pieceX = 0;
+        pieceY = 0;
     }
 
-    public char getPiece() {return piece;}
-    public String getName() {return name;}
+    public void setPieceX(float x)    {pieceX = x - (pieceWidth / 2);}
 
-    public void setPiece(char piece) 
+    public void setPieceY(float y)    {pieceY = y - (pieceHeight / 2);}
+
+    public float getPieceX()    {return pieceX;}
+
+    public float getPieceY()    {return pieceY;}
+
+    public static float getPieceHeight()    {return pieceHeight;}
+
+    public static float getPieceWidth()    {return pieceWidth;}
+
+    public Sprite getPiece()    {return piece;}
+
+    public void drawPiece(Batch batch)
     {
-        if(Character.toUpperCase(piece) == 'X' || Character.toUpperCase(piece) == 'O')
-        {
-            this.piece = piece;
-        }
-        else
-        {
-            System.out.println("Invalid Selection, setting to empty character");
-            piece = ' ';
-        }    
+        piece.setPosition(pieceX, pieceY);
+        piece.draw(batch);
     }
 
-    public void setName(String name) {this.name = name;}
-
-    public void nextMove(Board board, int index)
+    public void disposePiece()
     {
-        board.setPosition(this, index);
+        pieceAtlas.dispose();
     }
-
 }
