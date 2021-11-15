@@ -13,7 +13,7 @@ import java.util.*;
 public class Board
 {
     private static final TextureAtlas boardAtlas = new TextureAtlas("boardSprites.txt");
-    private static final TreeMap<String, Sprite> boardSprites = new TreeMap<>();
+    private static final TreeMap<String, BoardPiece> boardSprites = new TreeMap<>();
 
 
     private static float boardWidth = 192f;
@@ -34,7 +34,7 @@ public class Board
         {
             Sprite sprite;
             sprite = boardAtlas.createSprite(region.name);
-            boardSprites.put(region.name, sprite);
+            boardSprites.put(region.name, new BoardPiece(sprite, region.name));
         }
 
     }
@@ -42,7 +42,7 @@ public class Board
 
     public void drawSprite(Batch batch, String name, float x, float y)
     {
-        Sprite sprite = boardSprites.get(name);
+        Sprite sprite = boardSprites.get(name).getBoardSprite();
 
         sprite.setPosition(x, y);
 
@@ -69,16 +69,17 @@ public class Board
 
     public void setOnBoard(float x, float y, Player p)
     {
-        Collection<Sprite> pieces = boardSprites.values();
+        Collection<BoardPiece> pieces = boardSprites.values();
+
         Rectangle tempRectangle;
-        for(Sprite s : pieces)
+        for(BoardPiece boardPiece : pieces)
         {
-            tempRectangle = s.getBoundingRectangle();
+            tempRectangle = boardPiece.getBoardSprite().getBoundingRectangle();
 
             if(tempRectangle.contains(x, y))
             {
-                p.setPieceX(s.getX() + (s.getWidth()/2));
-                p.setPieceY(s.getY() + (s.getHeight()/2));
+                p.setPieceX(boardPiece.getBoardSprite().getX() + (boardPiece.getBoardSprite().getWidth()/2));
+                p.setPieceY(boardPiece.getBoardSprite().getY() + (boardPiece.getBoardSprite().getHeight()/2));
             }
         }
     }
@@ -92,7 +93,7 @@ public class Board
             System.out.println(s);
         }
     }
-
+    /*
     public void notifyContaining(Player p)
     {
         Set<String> keys = boardSprites.keySet();
@@ -101,7 +102,7 @@ public class Board
         for(String s : keys)
         {
 
-            tempRectangle = new Rectangle(boardSprites.get(s).getBoundingRectangle());
+            tempRectangle = new Rectangle(boardSprites.get(s).getBoardSprite().getBoundingRectangle());
 
             if(p.getPiece().getBoundingRectangle().overlaps(tempRectangle))
             {
@@ -112,4 +113,5 @@ public class Board
         }
 
     }
+     */
 }

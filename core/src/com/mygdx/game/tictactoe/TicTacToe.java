@@ -53,7 +53,7 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 
 		board.setOnBoard(posX, posY, player1);
 
-		board.notifyContaining(player1);
+		//board.notifyContaining(player1);
 
 		batch.begin();
 
