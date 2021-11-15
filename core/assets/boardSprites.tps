@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename>sprites.png</filename>
+        <filename></filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>sprites.txt</filename>
+                <filename>boardSprites.txt</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,52 +181,15 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">bottomCenter.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,32,31</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,32,31</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">bottomLeft.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,33,31</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,33,31</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">bottomRight.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,31,31</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,31,31</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">middleCenter.png</key>
+            <key type="filename">1-topLeft.png</key>
+            <key type="filename">2-topCenter.png</key>
+            <key type="filename">3-topRight.png</key>
+            <key type="filename">4-middleLeft.png</key>
+            <key type="filename">5-middleCenter.png</key>
+            <key type="filename">6-middleRight.png</key>
+            <key type="filename">7-bottomLeft.png</key>
+            <key type="filename">8-bottomCenter.png</key>
+            <key type="filename">9-bottomRight.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -238,96 +201,21 @@
                 <rect>16,16,32,32</rect>
                 <key>scale9Paddings</key>
                 <rect>16,16,32,32</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">middleLeft.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,33,32</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,33,32</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">middleRight.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,31,32</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,31,32</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">topCenter.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,32,33</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,32,33</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">topLeft.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,33,33</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,33,33</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">topRight.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,31,33</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,31,33</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>bottomCenter.png</filename>
-            <filename>bottomLeft.png</filename>
-            <filename>bottomRight.png</filename>
-            <filename>middleCenter.png</filename>
-            <filename>middleLeft.png</filename>
-            <filename>middleRight.png</filename>
-            <filename>topCenter.png</filename>
-            <filename>topLeft.png</filename>
-            <filename>topRight.png</filename>
+            <filename>1-topLeft.png</filename>
+            <filename>2-topCenter.png</filename>
+            <filename>3-topRight.png</filename>
+            <filename>4-middleLeft.png</filename>
+            <filename>5-middleCenter.png</filename>
+            <filename>6-middleRight.png</filename>
+            <filename>8-bottomCenter.png</filename>
+            <filename>9-bottomRight.png</filename>
+            <filename>7-bottomLeft.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

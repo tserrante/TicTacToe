@@ -1,68 +1,68 @@
 boardSprites.png
-size: 128, 384
+size: 576, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-bottomCenter
+1-topLeft
   rotate: false
   xy: 0, 0
-  size: 64, 63
-  orig: 64, 63
-  offset: 0, 0
-  index: -1
-bottomLeft
-  rotate: false
-  xy: 0, 63
-  size: 65, 63
-  orig: 65, 63
-  offset: 0, 0
-  index: -1
-bottomRight
-  rotate: false
-  xy: 65, 63
-  size: 63, 63
-  orig: 63, 63
-  offset: 0, 0
-  index: -1
-middleCenter
-  rotate: false
-  xy: 0, 126
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-middleLeft
+2-topCenter
   rotate: false
-  xy: 0, 190
-  size: 65, 64
-  orig: 65, 64
+  xy: 64, 0
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-middleRight
+3-topRight
   rotate: false
-  xy: 65, 190
-  size: 63, 64
-  orig: 63, 64
+  xy: 128, 0
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-topCenter
+4-middleLeft
   rotate: false
-  xy: 0, 254
-  size: 64, 65
-  orig: 64, 65
+  xy: 192, 0
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-topLeft
+5-middleCenter
   rotate: false
-  xy: 0, 319
-  size: 65, 65
-  orig: 65, 65
+  xy: 256, 0
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-topRight
+6-middleRight
   rotate: false
-  xy: 65, 319
-  size: 63, 65
-  orig: 63, 65
+  xy: 320, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+7-bottomLeft
+  rotate: false
+  xy: 384, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+8-bottomCenter
+  rotate: false
+  xy: 448, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+9-bottomRight
+  rotate: false
+  xy: 512, 0
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1

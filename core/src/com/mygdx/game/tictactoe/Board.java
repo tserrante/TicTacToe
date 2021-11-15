@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
+
 
 public class Board
 {
     private static final TextureAtlas boardAtlas = new TextureAtlas("boardSprites.txt");
-    private static final HashMap<String, Sprite> boardSprites = new HashMap<>();
-    private int[] boardData;
+    private static final TreeMap<String, Sprite> boardSprites = new TreeMap<>();
+
 
     private static float boardWidth = 192f;
     private static float boardHeight = 192f;
@@ -36,11 +36,7 @@ public class Board
             sprite = boardAtlas.createSprite(region.name);
             boardSprites.put(region.name, sprite);
         }
-        boardData = new int[9];
-        for(int i = 0; i < 9; i++)
-        {
-            boardData[i] = 0;
-        }
+
     }
 
 
@@ -55,15 +51,15 @@ public class Board
 
     public void drawBoard(Batch batch)
     {
-        drawSprite(batch, "bottomLeft", anchorX, anchorY);
-        drawSprite(batch,"bottomCenter", anchorX + 65, anchorY);
-        drawSprite(batch,"bottomRight", anchorX + 129, anchorY);
-        drawSprite(batch,"middleLeft", anchorX, anchorY + 63);
-        drawSprite(batch,"middleCenter", anchorX + 65, anchorY + 63);
-        drawSprite(batch,"middleRight", anchorX + 129, anchorY + 63);
-        drawSprite(batch,"topLeft", anchorX, anchorY + 127);
-        drawSprite(batch,"topCenter", anchorX + 65, anchorY + 127);
-        drawSprite(batch,"topRight", anchorX + 129, anchorY + 127);
+        drawSprite(batch, "7-bottomLeft", anchorX, anchorY);
+        drawSprite(batch,"8-bottomCenter", anchorX + 64, anchorY);
+        drawSprite(batch,"9-bottomRight", anchorX + 128, anchorY);
+        drawSprite(batch,"4-middleLeft", anchorX, anchorY + 64);
+        drawSprite(batch,"5-middleCenter", anchorX + 64, anchorY + 64);
+        drawSprite(batch,"6-middleRight", anchorX + 128, anchorY + 64);
+        drawSprite(batch,"1-topLeft", anchorX, anchorY + 128);
+        drawSprite(batch,"2-topCenter", anchorX + 64, anchorY + 128);
+        drawSprite(batch,"3-topRight", anchorX + 128, anchorY + 128);
     }
 
     public void dispose()
@@ -85,13 +81,35 @@ public class Board
                 p.setPieceY(s.getY() + (s.getHeight()/2));
             }
         }
-
-
     }
 
-    public void overlapWithPiece()
+    public void printBoardMap()
     {
+        Set<String> keyList = boardSprites.keySet();
 
+        for(String s : keyList)
+        {
+            System.out.println(s);
+        }
     }
 
+    public void notifyContaining(Player p)
+    {
+        Set<String> keys = boardSprites.keySet();
+        Rectangle tempRectangle;
+
+        for(String s : keys)
+        {
+
+            tempRectangle = new Rectangle(boardSprites.get(s).getBoundingRectangle());
+
+            if(p.getPiece().getBoundingRectangle().overlaps(tempRectangle))
+            {
+                System.out.println(tempRectangle.toString());
+
+                System.out.println(s + " is occupied!");
+            }
+        }
+
+    }
 }

@@ -27,7 +27,7 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 
 		batch = new SpriteBatch();
 		board = new Board();
-		player1 = new Player("x");
+		player1 = new Player("o");
 
 		posX = 0;
 		posY = 0;
@@ -37,6 +37,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		camera.setToOrtho(false, 800, 480);
 
 		Gdx.input.setInputProcessor(this);
+
+		board.printBoardMap();
 
 	}
 
@@ -50,6 +52,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		batch.setProjectionMatrix(camera.combined);
 
 		board.setOnBoard(posX, posY, player1);
+
+		board.notifyContaining(player1);
 
 		batch.begin();
 

@@ -3,14 +3,14 @@ size: 128, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-o
+piece_o
   rotate: false
   xy: 0, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-x
+piece_x
   rotate: false
   xy: 64, 0
   size: 64, 64

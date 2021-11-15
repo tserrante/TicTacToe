@@ -20,10 +20,10 @@ public class Player
     {
         // set the users piece here
         //Array<TextureAtlas.AtlasRegion> regions = pieceAtlas.getRegions();
-        if(pieceSelect.toLowerCase().equals("x") || pieceSelect.toLowerCase().equals("o"))
-            piece = new Sprite(pieceAtlas.findRegion(pieceSelect));
-        else
-            piece = null;
+        if(pieceSelect.toLowerCase().equals("x"))
+            piece = new Sprite(pieceAtlas.findRegion("piece_" + pieceSelect));
+        if(pieceSelect.toLowerCase().equals("o"))
+            piece = new Sprite(pieceAtlas.findRegion("piece_" + pieceSelect));
 
         pieceX = 0;
         pieceY = 0;

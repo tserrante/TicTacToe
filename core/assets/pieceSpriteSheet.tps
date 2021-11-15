@@ -181,8 +181,8 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">o.png</key>
-            <key type="filename">x.png</key>
+            <key type="filename">piece_o.png</key>
+            <key type="filename">piece_x.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -200,8 +200,8 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>o.png</filename>
-            <filename>x.png</filename>
+            <filename>piece_o.png</filename>
+            <filename>piece_x.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
