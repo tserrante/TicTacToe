@@ -3,21 +3,21 @@ size: 576, 64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-1-topLeft
+1-bottomLeft
   rotate: false
   xy: 0, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-2-topCenter
+2-bottomCenter
   rotate: false
   xy: 64, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-3-topRight
+3-bottomRight
   rotate: false
   xy: 128, 0
   size: 64, 64
@@ -45,21 +45,21 @@ repeat: none
   orig: 64, 64
   offset: 0, 0
   index: -1
-7-bottomLeft
+7-topLeft
   rotate: false
   xy: 384, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-8-bottomCenter
+8-topCenter
   rotate: false
   xy: 448, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-9-bottomRight
+9-topRight
   rotate: false
   xy: 512, 0
   size: 64, 64

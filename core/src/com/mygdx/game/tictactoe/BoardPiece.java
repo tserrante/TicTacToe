@@ -2,17 +2,17 @@ package com.mygdx.game.tictactoe;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class BoardPiece
+public class BoardPiece implements Comparable<BoardPiece>
 {
-    private Sprite boardSprite;
-    private String boardPieceName;
-    private int state; // 0 = no x or o, 1 = player one, 2 = player two
+    private final Sprite boardSprite;
+    private final String boardPieceName;
+    private PLAYER_ID pieceState; // tracks who is on the piece
 
     BoardPiece(Sprite boardSprite, String boardPieceName )
     {
         this.boardSprite = boardSprite;
         this.boardPieceName = boardPieceName;
-        state = 0;
+        pieceState = PLAYER_ID.NO_PLAYER;
     }
 
     public Sprite getBoardSprite()
@@ -20,9 +20,9 @@ public class BoardPiece
         return boardSprite;
     }
 
-    public int getState()
+    public PLAYER_ID getState()
     {
-        return state;
+        return pieceState;
     }
 
     public String getBoardPieceName()
@@ -30,13 +30,28 @@ public class BoardPiece
         return boardPieceName;
     }
 
-    public void setState(int state)
+    public void setPieceState(PLAYER_ID pieceState)
     {
-        if(state == 0 || state == 1 || state == 2)
-            this.state = state;
+        if(this.pieceState == PLAYER_ID.NO_PLAYER &&( pieceState == PLAYER_ID.PLAYER_ONE || pieceState == PLAYER_ID.PLAYER_TWO))
+            this.pieceState =  pieceState;
         else
             System.out.println("Incorrect BoardPiece state");
     }
 
+    public PLAYER_ID getPieceState()
+    {
+        return pieceState;
+    }
 
+
+    public BoardPiece getPieceObj()
+    {
+        return this;
+    }
+
+    @Override
+    public int compareTo(BoardPiece o)
+    {
+        return 1;
+    }
 }

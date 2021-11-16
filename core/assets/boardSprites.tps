@@ -181,15 +181,15 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">1-topLeft.png</key>
-            <key type="filename">2-topCenter.png</key>
-            <key type="filename">3-topRight.png</key>
+            <key type="filename">1-bottomLeft.png</key>
+            <key type="filename">2-bottomCenter.png</key>
+            <key type="filename">3-bottomRight.png</key>
             <key type="filename">4-middleLeft.png</key>
             <key type="filename">5-middleCenter.png</key>
             <key type="filename">6-middleRight.png</key>
-            <key type="filename">7-bottomLeft.png</key>
-            <key type="filename">8-bottomCenter.png</key>
-            <key type="filename">9-bottomRight.png</key>
+            <key type="filename">7-topLeft.png</key>
+            <key type="filename">8-topCenter.png</key>
+            <key type="filename">9-topRight.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -207,22 +207,24 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>1-topLeft.png</filename>
-            <filename>2-topCenter.png</filename>
-            <filename>3-topRight.png</filename>
+            <filename>1-bottomLeft.png</filename>
+            <filename>2-bottomCenter.png</filename>
+            <filename>3-bottomRight.png</filename>
             <filename>4-middleLeft.png</filename>
             <filename>5-middleCenter.png</filename>
             <filename>6-middleRight.png</filename>
-            <filename>8-bottomCenter.png</filename>
-            <filename>9-bottomRight.png</filename>
-            <filename>7-bottomLeft.png</filename>
+            <filename>7-topLeft.png</filename>
+            <filename>8-topCenter.png</filename>
+            <filename>9-topRight.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array/>
+        <array>
+            <string>try-pro-features</string>
+        </array>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>

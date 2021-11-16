@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class Player
 {
-    private static final TextureAtlas pieceAtlas = new TextureAtlas("pieceSprites.txt");;
+    private static final TextureAtlas pieceAtlas = new TextureAtlas("pieceSprites.txt");
     private Sprite piece;
 
     private static float pieceWidth = 64;
@@ -16,17 +16,23 @@ public class Player
 
     private float pieceX, pieceY;
 
-    Player(String pieceSelect)
+
+
+    private PLAYER_ID playerId;
+
+    Player(String pieceSelect, PLAYER_ID thisID)
     {
         // set the users piece here
         //Array<TextureAtlas.AtlasRegion> regions = pieceAtlas.getRegions();
-        if(pieceSelect.toLowerCase().equals("x"))
+        if(pieceSelect.equalsIgnoreCase("x"))
             piece = new Sprite(pieceAtlas.findRegion("piece_" + pieceSelect));
-        if(pieceSelect.toLowerCase().equals("o"))
+        if(pieceSelect.equalsIgnoreCase("o"))
             piece = new Sprite(pieceAtlas.findRegion("piece_" + pieceSelect));
 
         pieceX = 0;
         pieceY = 0;
+
+        this.playerId = thisID;
     }
 
     public void setPieceX(float x)    {pieceX = x - (pieceWidth / 2);}
@@ -47,6 +53,11 @@ public class Player
     {
         piece.setPosition(pieceX, pieceY);
         piece.draw(batch);
+    }
+
+    public PLAYER_ID getPlayerId()
+    {
+        return playerId;
     }
 
     public void disposePiece()
