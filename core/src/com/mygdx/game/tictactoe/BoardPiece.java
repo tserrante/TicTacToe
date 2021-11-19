@@ -27,10 +27,10 @@ public class BoardPiece extends Sprite implements Comparable<BoardPiece>
         return pieceState;
     }
 
-    public void setBoardPieceState(PLAYER_ID pieceState)
+    public void setBoardPieceState(PLAYER_ID newPieceState)
     {
-        if(this.pieceState == PLAYER_ID.NO_PLAYER &&( pieceState == PLAYER_ID.PLAYER_ONE || pieceState == PLAYER_ID.PLAYER_TWO))
-            this.pieceState =  pieceState;
+        if(this.pieceState == PLAYER_ID.NO_PLAYER &&( newPieceState == PLAYER_ID.PLAYER_ONE || newPieceState == PLAYER_ID.PLAYER_TWO))
+            this.pieceState =  newPieceState;
         else
             System.out.println("Incorrect BoardPiece state");
     }

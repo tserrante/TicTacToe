@@ -53,10 +53,11 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 			board.setOnBoard(posX, posY, player1);
 
 		}
+		// Check for win condition here
 
 		for(BoardPiece piece : board.getBoardSet())
 		{
-			System.out.println(piece.getPieceState());
+			System.out.println(piece.getBoardPieceName() + "-" + piece.getPieceState());
 		}
 
 		batch.begin();
