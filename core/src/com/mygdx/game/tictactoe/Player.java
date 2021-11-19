@@ -1,58 +1,64 @@
 package com.mygdx.game.tictactoe;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
+import java.util.Iterator;
+import java.util.Arrays;
 
 
 public class Player
 {
     private static final TextureAtlas pieceAtlas = new TextureAtlas("pieceSprites.txt");
-    private Sprite piece;
-
-    private static float pieceWidth = 64;
-    private static float pieceHeight = 64;
-
-    private float pieceX, pieceY;
-
-
-
+    private PlayerPiece[] pieces;
     private PLAYER_ID playerId;
 
-    Player(String pieceSelect, PLAYER_ID thisID)
+    Player(String pieceSelect, PLAYER_ID playerId)
     {
+        this.playerId = playerId;
         // set the users piece here
-        //Array<TextureAtlas.AtlasRegion> regions = pieceAtlas.getRegions();
-        if(pieceSelect.equalsIgnoreCase("x"))
-            piece = new Sprite(pieceAtlas.findRegion("piece_" + pieceSelect));
-        if(pieceSelect.equalsIgnoreCase("o"))
-            piece = new Sprite(pieceAtlas.findRegion("piece_" + pieceSelect));
+        pieces = fillPlayerPieces(pieceSelect);
 
-        pieceX = 0;
-        pieceY = 0;
-
-        this.playerId = thisID;
     }
 
-    public void setPieceX(float x)    {pieceX = x - (pieceWidth / 2);}
 
-    public void setPieceY(float y)    {pieceY = y - (pieceHeight / 2);}
-
-    public float getPieceX()    {return pieceX;}
-
-    public float getPieceY()    {return pieceY;}
-
-    public static float getPieceHeight()    {return pieceHeight;}
-
-    public static float getPieceWidth()    {return pieceWidth;}
-
-    public Sprite getPiece()    {return piece;}
-
-    public void drawPiece(Batch batch)
+    private PlayerPiece[] fillPlayerPieces(String pieceSelect)
     {
-        piece.setPosition(pieceX, pieceY);
-        piece.draw(batch);
+        PlayerPiece[] retArray = new PlayerPiece[5];
+        try
+        {
+            int count = 0;
+            while (count < 5)
+            {
+                retArray[count] = (new PlayerPiece(pieceAtlas.findRegion("piece_" + pieceSelect)));
+                count++;
+            }
+
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return retArray;
+
+    }
+
+    public PlayerPiece getPiece(int i)    {return pieces[i];}
+
+    public PlayerPiece[] getPlayerPieces()    {return pieces;}
+
+
+    public void drawPieces(Batch batch)
+    {
+        for(PlayerPiece piece : pieces)
+        {
+            piece.draw(batch);
+        }
     }
 
     public PLAYER_ID getPlayerId()
@@ -60,7 +66,7 @@ public class Player
         return playerId;
     }
 
-    public void disposePiece()
+    public void disposePieceAtlas()
     {
         pieceAtlas.dispose();
     }

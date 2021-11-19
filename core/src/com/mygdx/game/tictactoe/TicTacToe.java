@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import java.awt.*;
-
 
 public class TicTacToe extends Game implements InputProcessor, ApplicationListener
 {
@@ -51,7 +49,10 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		batch.setProjectionMatrix(camera.combined);
 
 		if(Gdx.input.isTouched())
+		{
 			board.setOnBoard(posX, posY, player1);
+
+		}
 
 		for(BoardPiece piece : board.getBoardSet())
 		{
@@ -61,14 +62,14 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		batch.begin();
 
 		board.drawBoard(batch);
-		player1.drawPiece(batch);
+		player1.drawPieces(batch);
 
 		batch.end();
 	}
 	@Override
 	public void dispose()
 	{
-		player1.disposePiece();
+		player1.disposePieceAtlas();
 		batch.dispose();
 	}
 	@Override

@@ -30,7 +30,7 @@ public class BoardPiece implements Comparable<BoardPiece>
         return boardPieceName;
     }
 
-    public void setPieceState(PLAYER_ID pieceState)
+    public void setBoardPieceState(PLAYER_ID pieceState)
     {
         if(this.pieceState == PLAYER_ID.NO_PLAYER &&( pieceState == PLAYER_ID.PLAYER_ONE || pieceState == PLAYER_ID.PLAYER_TWO))
             this.pieceState =  pieceState;

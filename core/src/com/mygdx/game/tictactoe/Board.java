@@ -30,12 +30,14 @@ public class Board
     {
         // add sprites to hash map
         Array<TextureAtlas.AtlasRegion> regions = boardAtlas.getRegions();
-
+        int i = 0;
         for(TextureAtlas.AtlasRegion region : regions)
         {
             Sprite sprite;
             sprite = boardAtlas.createSprite(region.name);
+            sprite.setPosition(64 * i, 64 * i);
             boardSet.add(new BoardPiece(sprite, region.name));
+            i++;
         }
 
     }
@@ -46,6 +48,7 @@ public class Board
 
             for(int i = 0; i < boardSet.size(); i++)
             {
+
                 if(itr.hasNext())
                 {
                     BoardPiece piece = itr.next();
@@ -76,23 +79,32 @@ public class Board
 
     public void setOnBoard(float x, float y, Player p)
     {
-        //Collection<BoardPiece> pieces = boardSprites.values();
-
         Rectangle tempRectangle;
+        boolean madePlay = false;
         for(BoardPiece boardPiece : boardSet)
         {
             tempRectangle = boardPiece.getBoardSprite().getBoundingRectangle();
 
-            if(tempRectangle.contains(x, y))
-            {
-                p.setPieceX(boardPiece.getBoardSprite().getX() + (boardPiece.getBoardSprite().getWidth()/2));
-                p.setPieceY(boardPiece.getBoardSprite().getY() + (boardPiece.getBoardSprite().getHeight()/2));
-
-                if(boardPiece.getPieceState() == PLAYER_ID.NO_PLAYER)
+                if (tempRectangle.contains(x, y))
                 {
-                    boardPiece.setPieceState(p.getPlayerId());
+                    for(PlayerPiece piece : p.getPlayerPieces())
+                    {
+                        if(!piece.isPiecePlayed() && boardPiece.getPieceState() == PLAYER_ID.NO_PLAYER && !madePlay)
+                        {
+                            piece.setPiecePlayed(true);
+
+                            piece.setPosition
+                            (
+                                boardPiece.getBoardSprite().getX() + (boardPiece.getBoardSprite().getWidth() / 2) - 32,
+                                boardPiece.getBoardSprite().getY() + (boardPiece.getBoardSprite().getHeight() / 2) - 32
+                            );
+
+
+                            boardPiece.setBoardPieceState(p.getPlayerId());
+                            madePlay = true;
+                        }
+                    }
                 }
-            }
         }
     }
 
