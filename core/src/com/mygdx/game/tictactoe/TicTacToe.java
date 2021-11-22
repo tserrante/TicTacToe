@@ -6,11 +6,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.Map;
+
+import static com.mygdx.game.tictactoe.Referee.getWinner;
+import static com.mygdx.game.tictactoe.Referee.isWinningPlay;
+
 
 public class TicTacToe extends Game implements InputProcessor, ApplicationListener
 {
 	private Board board;
 	private Player player1;
+	private Player player2;
 
 	// camera and spritebatch
 	private OrthographicCamera camera;
@@ -25,7 +31,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 
 		batch = new SpriteBatch();
 		board = new Board();
-		player1 = new Player("o", PLAYER_ID.PLAYER_ONE);
+		player1 = new Player("x", PLAYER_ID.PLAYER_ONE);
+		player2 = new Player("o",  PLAYER_ID.PLAYER_TWO);
 
 		posX = 0;
 		posY = 0;
@@ -36,6 +43,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 
 		Gdx.input.setInputProcessor(this);
 
+		for(Map.Entry<Integer, BoardPiece> entry : board.getBoardMap().entrySet())
+			System.out.println(entry.getKey() + " " + entry.getValue().getBoardPieceName());
 
 	}
 
@@ -51,19 +60,23 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		if(Gdx.input.isTouched())
 		{
 			board.setOnBoard(posX, posY, player1);
-
 		}
-		// Check for win condition here
 
-		for(BoardPiece piece : board.getBoardSet())
+		// Check for win condition here
+		if(isWinningPlay(board))
+			System.out.println(getWinner() + " wins!");
+		/*
+		for(BoardPiece piece : board.getBoardMap().values())
 		{
 			System.out.println(piece.getBoardPieceName() + "-" + piece.getPieceState());
 		}
+		*/
 
 		batch.begin();
 
 		board.drawBoard(batch);
 		player1.drawPieces(batch);
+		player2.drawPieces(batch);
 
 		batch.end();
 	}
@@ -71,6 +84,7 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 	public void dispose()
 	{
 		player1.disposePieceAtlas();
+		player2.disposePieceAtlas();
 		batch.dispose();
 	}
 	@Override

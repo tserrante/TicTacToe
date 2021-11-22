@@ -1,5 +1,6 @@
 package com.mygdx.game.tictactoe;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -13,17 +14,18 @@ public class PlayerPiece extends Sprite
     {
         super(region);
         piecePlayed = false;
-        setX(0.0f);
-        setY(0.0f);
+        if(region.name.equals("piece_x") )
+        {
+            setX(0.0f);
+            setY(0.0f);
+        }
+        else
+        {
+            setX(Gdx.graphics.getWidth() - 64f);
+            setY(0);
+        }
     }
 
-    public PlayerPiece(TextureAtlas.AtlasRegion region, float x, float y)
-    {
-        super(region);
-        piecePlayed = false;
-        setX(x);
-        setY(y);
-    }
 
     public void setPiecePlayed(boolean value) {piecePlayed = value;}
     public boolean isPiecePlayed() {return piecePlayed;}
