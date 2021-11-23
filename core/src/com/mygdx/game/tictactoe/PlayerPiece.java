@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class PlayerPiece extends Sprite
 {
     private boolean piecePlayed;
-    private static final float pieceWidth = 64;
-    private static final float pieceHeight = 64;
 
     public PlayerPiece(TextureAtlas.AtlasRegion region)
     {
@@ -29,9 +27,4 @@ public class PlayerPiece extends Sprite
 
     public void setPiecePlayed(boolean value) {piecePlayed = value;}
     public boolean isPiecePlayed() {return piecePlayed;}
-
-    public static float getPieceHeight()    {return pieceHeight;}
-    public static float getPieceWidth()     {return pieceWidth;}
-
-
 }

@@ -1,13 +1,7 @@
 package com.mygdx.game.tictactoe;
 
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
-import java.util.Iterator;
-import java.util.Arrays;
 
 
 public class Player

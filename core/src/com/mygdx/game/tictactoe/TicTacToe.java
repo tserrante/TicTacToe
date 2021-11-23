@@ -2,14 +2,15 @@ package com.mygdx.game.tictactoe;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.Map;
 
-import static com.mygdx.game.tictactoe.Referee.getWinner;
-import static com.mygdx.game.tictactoe.Referee.isWinningPlay;
+import static com.mygdx.game.tictactoe.Referee.*;
 
 
 public class TicTacToe extends Game implements InputProcessor, ApplicationListener
@@ -18,6 +19,7 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 	private Player player1;
 	private Player player2;
 
+	ShapeRenderer strikeThrough;
 	// camera and spritebatch
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -36,6 +38,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 
 		posX = 0;
 		posY = 0;
+
+		strikeThrough = new ShapeRenderer();
 
 		// create the camera
 		camera = new OrthographicCamera();
@@ -62,29 +66,27 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 			board.setOnBoard(posX, posY, player1);
 		}
 
-		// Check for win condition here
-		if(isWinningPlay(board))
-			System.out.println(getWinner() + " wins!");
-		/*
-		for(BoardPiece piece : board.getBoardMap().values())
-		{
-			System.out.println(piece.getBoardPieceName() + "-" + piece.getPieceState());
-		}
-		*/
-
 		batch.begin();
-
 		board.drawBoard(batch);
 		player1.drawPieces(batch);
-		player2.drawPieces(batch);
-
 		batch.end();
+
+		if(isWinningPlay(board))
+		{
+			strikeThrough.begin(ShapeRenderer.ShapeType.Line);
+			strikeThrough.setColor(1, 0, 0, 1); // red line
+			strikeThrough.line(getWinningPlay().get(0).getX() + 32f, getWinningPlay().get(0).getY() + 32f,
+								getWinningPlay().get(2).getX() + 32f, getWinningPlay().get(2).getY() + 32f);
+			strikeThrough.end();
+		}
+
 	}
 	@Override
 	public void dispose()
 	{
 		player1.disposePieceAtlas();
 		player2.disposePieceAtlas();
+		strikeThrough.dispose();
 		batch.dispose();
 	}
 	@Override

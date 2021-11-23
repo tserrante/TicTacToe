@@ -1,14 +1,15 @@
 package com.mygdx.game.tictactoe;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
+
 import java.util.*;
-import java.util.TreeSet;
 
 
 public class Board
@@ -53,7 +54,6 @@ public class Board
             {
                 sprite.setPosition((anchorX + (index - 7) * 64), anchorY + 128);
             }
-
             sprite.draw(batch);
         }
 
