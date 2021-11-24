@@ -1,15 +1,14 @@
 package com.mygdx.game.tictactoe;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class Board
@@ -39,22 +38,22 @@ public class Board
     {
         for(Integer index : boardSet.keySet())
         {
-            Sprite sprite = boardSet.get(index);
+            //Sprite sprite = boardSet.get(index);
             if(index < 4)
             {
-                sprite.setPosition(anchorX + ((index - 1) * 64), anchorY);
+                boardSet.get(index).setPosition(anchorX + ((index - 1) * 64), anchorY);
             }
 
             if(index >= 4 && index < 7)
             {
-                sprite.setPosition((anchorX + (index - 4) * 64), anchorY + 64);
+                boardSet.get(index).setPosition((anchorX + (index - 4) * 64), anchorY + 64);
             }
 
             if(index >= 7) // greater than or equal to 6
             {
-                sprite.setPosition((anchorX + (index - 7) * 64), anchorY + 128);
+                boardSet.get(index).setPosition((anchorX + (index - 7) * 64), anchorY + 128);
             }
-            sprite.draw(batch);
+            boardSet.get(index).draw(batch);
         }
 
     }
@@ -69,7 +68,7 @@ public class Board
         {
             tempRectangle = boardPiece.getBoundingRectangle();
 
-                if (tempRectangle.contains(x, y))
+                if (boardPiece.getBoundingRectangle().contains(x, y))
                 {
                     for(PlayerPiece piece : p.getPlayerPieces())
                     {
