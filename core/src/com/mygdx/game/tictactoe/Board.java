@@ -3,18 +3,18 @@ package com.mygdx.game.tictactoe;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 
 public class Board
 {
     private static final TextureAtlas boardAtlas = new TextureAtlas("boardSprites.txt");
-    private static final TreeMap<Integer, BoardPiece> boardSet = new TreeMap<>();
+    private static final TreeMap<Integer, BoardPiece> boardMap = new TreeMap<>();
 
     //used to build the board for draw calls
     private static final float anchorX = (Gdx.graphics.getWidth() / 2.0f) - (192f / 2);
@@ -29,70 +29,52 @@ public class Board
         for(TextureAtlas.AtlasRegion region : regions)
         {
             index = Integer.parseInt(region.name.substring(0,1));
-            boardSet.put(index, new BoardPiece(region, region.name));
+            boardMap.put(index, new BoardPiece(region, region.name));
         }
 
     }
 
     public void drawBoard(Batch batch)
     {
-        for(Integer index : boardSet.keySet())
+        for(Integer index : boardMap.keySet())
         {
             //Sprite sprite = boardSet.get(index);
             if(index < 4)
             {
-                boardSet.get(index).setPosition(anchorX + ((index - 1) * 64), anchorY);
+                boardMap.get(index).setPosition(anchorX + ((index - 1) * 64), anchorY);
             }
 
             if(index >= 4 && index < 7)
             {
-                boardSet.get(index).setPosition((anchorX + (index - 4) * 64), anchorY + 64);
+                boardMap.get(index).setPosition((anchorX + (index - 4) * 64), anchorY + 64);
             }
 
             if(index >= 7) // greater than or equal to 6
             {
-                boardSet.get(index).setPosition((anchorX + (index - 7) * 64), anchorY + 128);
+                boardMap.get(index).setPosition((anchorX + (index - 7) * 64), anchorY + 128);
             }
-            boardSet.get(index).draw(batch);
+            boardMap.get(index).draw(batch);
         }
 
     }
 
 
-    public void setOnBoard(float x, float y, Player p)
+    public BoardPiece getBoardPiece(float x, float y)
     {
-        Rectangle tempRectangle;
-        boolean madePlay = false;
 
-        for(BoardPiece boardPiece : boardSet.values())
-        {
-            tempRectangle = boardPiece.getBoundingRectangle();
+            for(BoardPiece boardPiece : boardMap.values())
+            {
+                if(boardPiece.getBoundingRectangle().contains(x ,y))
+                    return boardPiece;
+            }
 
-                if (boardPiece.getBoundingRectangle().contains(x, y))
-                {
-                    for(PlayerPiece piece : p.getPlayerPieces())
-                    {
-                        if(!piece.isPiecePlayed() && boardPiece.getPieceState() == PLAYER_ID.NO_PLAYER && !madePlay)
-                        {
-                            piece.setPiecePlayed(true);
 
-                            piece.setPosition
-                            (
-                                boardPiece.getX() + (boardPiece.getWidth() / 2) - 32,
-                                boardPiece.getY() + (boardPiece.getHeight() / 2) - 32
-                            );
-                            boardPiece.setBoardPieceState(p.getPlayerId());
-                            madePlay = true;
-                        }
-                    }
-                }
-        }
+            return null;
+
     }
-
-
     public Map<Integer, BoardPiece> getBoardMap()
     {
-        return boardSet;
+        return boardMap;
     }
 
     public void dispose()

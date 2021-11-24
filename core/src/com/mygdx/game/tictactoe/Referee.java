@@ -2,14 +2,12 @@ package com.mygdx.game.tictactoe;
 
 
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
 import java.util.*;
 
 public class Referee
 {
     public static PLAYER_ID winner;
-    public static List<BoardPiece> winningPlay = new ArrayList<>();
+    public static List<BoardPiece> winningPieces = new ArrayList<>();
 
     public static boolean isWinningPlay(Board board)
     {
@@ -21,27 +19,27 @@ public class Referee
 
                 if(boardCopy.get(2).getPieceState() == checkPlayer && boardCopy.get(3).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(1));
-                    winningPlay.add(boardCopy.get(2));
-                    winningPlay.add(boardCopy.get(3));
+                    winningPieces.add(boardCopy.get(1));
+                    winningPieces.add(boardCopy.get(2));
+                    winningPieces.add(boardCopy.get(3));
 
                     winner = checkPlayer;
                     return true;
                 }
                 if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(9).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(1));
-                    winningPlay.add(boardCopy.get(5));
-                    winningPlay.add(boardCopy.get(9));
+                    winningPieces.add(boardCopy.get(1));
+                    winningPieces.add(boardCopy.get(5));
+                    winningPieces.add(boardCopy.get(9));
 
                     winner = checkPlayer;
                     return true;
                 }
                 if(boardCopy.get(4).getPieceState() == checkPlayer && boardCopy.get(7).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(1));
-                    winningPlay.add(boardCopy.get(4));
-                    winningPlay.add(boardCopy.get(7));
+                    winningPieces.add(boardCopy.get(1));
+                    winningPieces.add(boardCopy.get(4));
+                    winningPieces.add(boardCopy.get(7));
                     winner = checkPlayer;
                     return true;
                 }
@@ -53,9 +51,9 @@ public class Referee
 
                 if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(8).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(2));
-                    winningPlay.add(boardCopy.get(5));
-                    winningPlay.add(boardCopy.get(8));
+                    winningPieces.add(boardCopy.get(2));
+                    winningPieces.add(boardCopy.get(5));
+                    winningPieces.add(boardCopy.get(8));
 
                     winner = checkPlayer;
                     return true;
@@ -67,17 +65,17 @@ public class Referee
                 PLAYER_ID checkPlayer = boardCopy.get(3).getPieceState();
                 if(boardCopy.get(6).getPieceState() == checkPlayer && boardCopy.get(9).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(3));
-                    winningPlay.add(boardCopy.get(6));
-                    winningPlay.add(boardCopy.get(9));
+                    winningPieces.add(boardCopy.get(3));
+                    winningPieces.add(boardCopy.get(6));
+                    winningPieces.add(boardCopy.get(9));
                     winner = checkPlayer;
                     return true;
                 }
                 if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(7).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(3));
-                    winningPlay.add(boardCopy.get(5));
-                    winningPlay.add(boardCopy.get(7));
+                    winningPieces.add(boardCopy.get(3));
+                    winningPieces.add(boardCopy.get(5));
+                    winningPieces.add(boardCopy.get(7));
                     winner = checkPlayer;
                     return true;
                 }
@@ -89,9 +87,9 @@ public class Referee
 
                 if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(6).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(4));
-                    winningPlay.add(boardCopy.get(5));
-                    winningPlay.add(boardCopy.get(6));
+                    winningPieces.add(boardCopy.get(4));
+                    winningPieces.add(boardCopy.get(5));
+                    winningPieces.add(boardCopy.get(6));
                     winner = checkPlayer;
                     return true;
                 }
@@ -103,9 +101,9 @@ public class Referee
 
                 if(boardCopy.get(8).getPieceState() == checkPlayer && boardCopy.get(9).getPieceState() == checkPlayer)
                 {
-                    winningPlay.add(boardCopy.get(7));
-                    winningPlay.add(boardCopy.get(8));
-                    winningPlay.add(boardCopy.get(9));
+                    winningPieces.add(boardCopy.get(7));
+                    winningPieces.add(boardCopy.get(8));
+                    winningPieces.add(boardCopy.get(9));
                     winner = checkPlayer;
                     return true;
                 }
@@ -115,15 +113,19 @@ public class Referee
             return false;
     }
 
+    public static boolean isValidMove(BoardPiece boardPiece)
+    {
+        return boardPiece != null && boardPiece.getPieceState() == PLAYER_ID.NO_PLAYER;
+    }
+
     public static PLAYER_ID getWinner()
     {
         return winner;
     }
 
-    public static List<BoardPiece> getWinningPlay()
+    public static List<BoardPiece> getWinningPieces()
     {
-        return winningPlay;
+        return winningPieces;
     }
-
 
 }

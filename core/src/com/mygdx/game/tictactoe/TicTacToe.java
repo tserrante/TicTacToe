@@ -2,7 +2,6 @@ package com.mygdx.game.tictactoe;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -63,7 +62,9 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 
 		if(Gdx.input.isTouched())
 		{
-			board.setOnBoard(posX, posY, player1);
+			if(isValidMove(board.getBoardPiece(posX, posY)))
+				player1.makeMove(board.getBoardPiece(posX, posY));
+
 		}
 
 		batch.begin();
@@ -75,8 +76,13 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		{
 			strikeThrough.begin(ShapeRenderer.ShapeType.Line);
 			strikeThrough.setColor(1, 0, 0, 1); // red line
-			strikeThrough.line(getWinningPlay().get(0).getX() + 32f, getWinningPlay().get(0).getY() + 32f,
-								getWinningPlay().get(2).getX() + 32f, getWinningPlay().get(2).getY() + 32f);
+			strikeThrough.line
+					(
+					getWinningPieces().get(0).getX() + 32f,
+					getWinningPieces().get(0).getY() + 32f,
+					getWinningPieces().get(2).getX() + 32f,
+					getWinningPieces().get(2).getY() + 32f
+					);
 			strikeThrough.end();
 		}
 

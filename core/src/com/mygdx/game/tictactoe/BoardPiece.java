@@ -22,10 +22,7 @@ public class BoardPiece extends Sprite implements Comparable<BoardPiece>
         return boardPieceName;
     }
 
-    public PLAYER_ID getPieceState()
-    {
-        return pieceState;
-    }
+    public PLAYER_ID getPieceState()    {return pieceState;}
 
     public void setBoardPieceState(PLAYER_ID newPieceState)
     {

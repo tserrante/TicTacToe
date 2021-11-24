@@ -31,7 +31,6 @@ public class Player
                 count++;
             }
 
-
         }
         catch (Exception e)
         {
@@ -42,10 +41,6 @@ public class Player
 
     }
 
-    public PlayerPiece getPiece(int i)    {return pieces[i];}
-
-    public PlayerPiece[] getPlayerPieces()    {return pieces;}
-
 
     public void drawPieces(Batch batch)
     {
@@ -54,6 +49,30 @@ public class Player
             piece.draw(batch);
         }
     }
+
+    public void makeMove(BoardPiece boardPiece)
+    {
+        boolean madePlay = false;
+        for(PlayerPiece playerPiece : pieces)
+        {
+            if(!playerPiece.isPiecePlayed() && !madePlay)
+            {
+                playerPiece.setPiecePlayed(true);
+                playerPiece.setPosition
+                        (
+                        boardPiece.getX() + (boardPiece.getWidth() / 2) - 32,
+                        boardPiece.getY() + (boardPiece.getHeight() / 2) - 32
+                        );
+                boardPiece.setBoardPieceState(this.getPlayerId());
+                madePlay = true;
+            }
+        }
+    }
+
+
+    public PlayerPiece[] getPlayerPieces()    {return pieces;}
+
+    public PlayerPiece getPiece(int i)    {return pieces[i];}
 
     public PLAYER_ID getPlayerId()
     {
