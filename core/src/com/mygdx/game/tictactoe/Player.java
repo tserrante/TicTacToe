@@ -9,23 +9,24 @@ public class Player
     private static final TextureAtlas pieceAtlas = new TextureAtlas("pieceSprites.txt");
     private PlayerPiece[] pieces;
     private PLAYER_ID playerId;
+    private int numTurns;
 
     Player(String pieceSelect, PLAYER_ID playerId)
     {
         this.playerId = playerId;
         // set the users piece here
         pieces = fillPlayerPieces(pieceSelect);
-
+        numTurns = 0;
     }
 
 
     private PlayerPiece[] fillPlayerPieces(String pieceSelect)
     {
-        PlayerPiece[] retArray = new PlayerPiece[5];
+        PlayerPiece[] retArray = new PlayerPiece[6];
         try
         {
             int count = 0;
-            while (count < 5)
+            while (count < 6)
             {
                 retArray[count] = (new PlayerPiece(pieceAtlas.findRegion("piece_" + pieceSelect)));
                 count++;
@@ -69,10 +70,13 @@ public class Player
         }
     }
 
+    public void incrementNumTurns(){numTurns++;}
 
-    public PlayerPiece[] getPlayerPieces()    {return pieces;}
+    public int getNumTurns(){return numTurns;}
 
-    public PlayerPiece getPiece(int i)    {return pieces[i];}
+    public PlayerPiece[] getPlayerPieces(){return pieces;}
+
+    public PlayerPiece getPiece(int i){return pieces[i];}
 
     public PLAYER_ID getPlayerId()
     {

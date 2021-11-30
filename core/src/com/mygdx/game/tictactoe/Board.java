@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 
 
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 
@@ -34,11 +33,10 @@ public class Board
 
     }
 
-    public void drawBoard(Batch batch)
+    public void setupBoardPieces()
     {
         for(Integer index : boardMap.keySet())
         {
-            //Sprite sprite = boardSet.get(index);
             if(index < 4)
             {
                 boardMap.get(index).setPosition(anchorX + ((index - 1) * 64), anchorY);
@@ -53,28 +51,58 @@ public class Board
             {
                 boardMap.get(index).setPosition((anchorX + (index - 7) * 64), anchorY + 128);
             }
-            boardMap.get(index).draw(batch);
         }
+    }
 
+    public void drawBoard(Batch batch)
+    {
+        for(BoardPiece boardPiece : boardMap.values())
+        {
+             boardPiece.draw(batch);
+        }
     }
 
 
     public BoardPiece getBoardPiece(float x, float y)
     {
-
             for(BoardPiece boardPiece : boardMap.values())
             {
                 if(boardPiece.getBoundingRectangle().contains(x ,y))
                     return boardPiece;
             }
-
-
             return null;
+    }
 
+    public boolean isBoardFull()
+    {
+        boolean retVal = true;
+
+        for(BoardPiece boardPiece : boardMap.values())
+        {
+            if (boardPiece.getPieceState() == PLAYER_ID.NO_PLAYER)
+            {
+                retVal = false;
+                break;
+            }
+        }
+
+        return retVal;
     }
     public Map<Integer, BoardPiece> getBoardMap()
     {
         return boardMap;
+    }
+
+    public BoardPiece getBoardPiece(int index)
+    {
+        try
+        {
+            return boardMap.get(index);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
     public void dispose()

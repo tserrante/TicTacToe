@@ -1,115 +1,119 @@
 package com.mygdx.game.tictactoe;
 
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Referee
 {
-    public static PLAYER_ID winner;
-    public static List<BoardPiece> winningPieces = new ArrayList<>();
+    private static PLAYER_ID winner;
+    private static final List<BoardPiece> winningPieces = new ArrayList<>();
+    public enum WIN_TYPE {ROW, COLUMN, DIAGONAL_TR, DIAGONAL_TL}
+    private static WIN_TYPE winType;
 
     public static boolean isWinningPlay(Board board)
     {
-        Map<Integer, BoardPiece> boardCopy = new TreeMap<>(board.getBoardMap());
-
-        if(boardCopy.get(1).getPieceState() != PLAYER_ID.NO_PLAYER)
+        if(board.getBoardPiece(1).getPieceState() != PLAYER_ID.NO_PLAYER)
             {
-                PLAYER_ID checkPlayer = boardCopy.get(1).getPieceState();
+                PLAYER_ID checkPlayer = board.getBoardPiece(1).getPieceState();
 
-                if(boardCopy.get(2).getPieceState() == checkPlayer && boardCopy.get(3).getPieceState() == checkPlayer)
+                if(board.getBoardPiece(2).getPieceState() == checkPlayer
+                        && board.getBoardPiece(3).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(1));
-                    winningPieces.add(boardCopy.get(2));
-                    winningPieces.add(boardCopy.get(3));
-
+                    winningPieces.add(board.getBoardPiece(1));
+                    winningPieces.add(board.getBoardPiece(2));
+                    winningPieces.add(board.getBoardPiece(3));
+                    winType = WIN_TYPE.ROW;
                     winner = checkPlayer;
                     return true;
                 }
-                if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(9).getPieceState() == checkPlayer)
+                if(board.getBoardPiece(5).getPieceState() == checkPlayer && board.getBoardPiece(9).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(1));
-                    winningPieces.add(boardCopy.get(5));
-                    winningPieces.add(boardCopy.get(9));
-
+                    winningPieces.add(board.getBoardPiece(1));
+                    winningPieces.add(board.getBoardPiece(5));
+                    winningPieces.add(board.getBoardPiece(9));
+                    winType = WIN_TYPE.DIAGONAL_TR;
                     winner = checkPlayer;
                     return true;
                 }
-                if(boardCopy.get(4).getPieceState() == checkPlayer && boardCopy.get(7).getPieceState() == checkPlayer)
+                if(board.getBoardPiece(4).getPieceState() == checkPlayer && board.getBoardPiece(7).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(1));
-                    winningPieces.add(boardCopy.get(4));
-                    winningPieces.add(boardCopy.get(7));
+                    winningPieces.add(board.getBoardPiece(1));
+                    winningPieces.add(board.getBoardPiece(4));
+                    winningPieces.add(board.getBoardPiece(7));
+                    winType = WIN_TYPE.COLUMN;
                     winner = checkPlayer;
                     return true;
                 }
             }
 
-            if(boardCopy.get(2).getPieceState() != PLAYER_ID.NO_PLAYER)
+            if(board.getBoardPiece(2).getPieceState() != PLAYER_ID.NO_PLAYER)
             {
-                PLAYER_ID checkPlayer = boardCopy.get(2).getPieceState();
+                PLAYER_ID checkPlayer = board.getBoardPiece(2).getPieceState();
 
-                if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(8).getPieceState() == checkPlayer)
+                if(board.getBoardPiece(5).getPieceState() == checkPlayer && board.getBoardPiece(8).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(2));
-                    winningPieces.add(boardCopy.get(5));
-                    winningPieces.add(boardCopy.get(8));
-
+                    winningPieces.add(board.getBoardPiece(2));
+                    winningPieces.add(board.getBoardPiece(5));
+                    winningPieces.add(board.getBoardPiece(8));
+                    winType = WIN_TYPE.COLUMN;
                     winner = checkPlayer;
                     return true;
                 }
             }
 
-            if(boardCopy.get(3).getPieceState() != PLAYER_ID.NO_PLAYER)
+            if(board.getBoardPiece(3).getPieceState() != PLAYER_ID.NO_PLAYER)
             {
-                PLAYER_ID checkPlayer = boardCopy.get(3).getPieceState();
-                if(boardCopy.get(6).getPieceState() == checkPlayer && boardCopy.get(9).getPieceState() == checkPlayer)
+                PLAYER_ID checkPlayer = board.getBoardPiece(3).getPieceState();
+                if(board.getBoardPiece(6).getPieceState() == checkPlayer && board.getBoardPiece(9).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(3));
-                    winningPieces.add(boardCopy.get(6));
-                    winningPieces.add(boardCopy.get(9));
+                    winningPieces.add(board.getBoardPiece(3));
+                    winningPieces.add(board.getBoardPiece(6));
+                    winningPieces.add(board.getBoardPiece(9));
                     winner = checkPlayer;
+                    winType = WIN_TYPE.COLUMN;
                     return true;
                 }
-                if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(7).getPieceState() == checkPlayer)
+                if(board.getBoardPiece(5).getPieceState() == checkPlayer && board.getBoardPiece(7).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(3));
-                    winningPieces.add(boardCopy.get(5));
-                    winningPieces.add(boardCopy.get(7));
+                    winningPieces.add(board.getBoardPiece(3));
+                    winningPieces.add(board.getBoardPiece(5));
+                    winningPieces.add(board.getBoardPiece(7));
+                    winType = WIN_TYPE.DIAGONAL_TL;
                     winner = checkPlayer;
                     return true;
                 }
             }
 
-            if(boardCopy.get(4).getPieceState() != PLAYER_ID.NO_PLAYER)
+            if(board.getBoardPiece(4).getPieceState() != PLAYER_ID.NO_PLAYER)
             {
-                PLAYER_ID checkPlayer = boardCopy.get(4).getPieceState();
+                PLAYER_ID checkPlayer = board.getBoardPiece(4).getPieceState();
 
-                if(boardCopy.get(5).getPieceState() == checkPlayer && boardCopy.get(6).getPieceState() == checkPlayer)
+                if(board.getBoardPiece(5).getPieceState() == checkPlayer && board.getBoardPiece(6).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(4));
-                    winningPieces.add(boardCopy.get(5));
-                    winningPieces.add(boardCopy.get(6));
+                    winningPieces.add(board.getBoardPiece(4));
+                    winningPieces.add(board.getBoardPiece(5));
+                    winningPieces.add(board.getBoardPiece(6));
+                    winType = WIN_TYPE.ROW;
                     winner = checkPlayer;
                     return true;
                 }
             }
 
-            if(boardCopy.get(7).getPieceState() != PLAYER_ID.NO_PLAYER)
+            if(board.getBoardPiece(7).getPieceState() != PLAYER_ID.NO_PLAYER)
             {
-                PLAYER_ID checkPlayer = boardCopy.get(7).getPieceState();
+                PLAYER_ID checkPlayer = board.getBoardPiece(7).getPieceState();
 
-                if(boardCopy.get(8).getPieceState() == checkPlayer && boardCopy.get(9).getPieceState() == checkPlayer)
+                if(board.getBoardPiece(8).getPieceState() == checkPlayer && board.getBoardPiece(9).getPieceState() == checkPlayer)
                 {
-                    winningPieces.add(boardCopy.get(7));
-                    winningPieces.add(boardCopy.get(8));
-                    winningPieces.add(boardCopy.get(9));
+                    winningPieces.add(board.getBoardPiece(7));
+                    winningPieces.add(board.getBoardPiece(8));
+                    winningPieces.add(board.getBoardPiece(9));
+                    winType = WIN_TYPE.ROW;
                     winner = checkPlayer;
                     return true;
                 }
             }
-
-
             return false;
     }
 
@@ -118,6 +122,10 @@ public class Referee
         return boardPiece != null && boardPiece.getPieceState() == PLAYER_ID.NO_PLAYER;
     }
 
+    public static WIN_TYPE getWinType()
+    {
+        return winType;
+    }
     public static PLAYER_ID getWinner()
     {
         return winner;

@@ -14,16 +14,14 @@ import static com.mygdx.game.tictactoe.Referee.*;
 
 public class TicTacToe extends Game implements InputProcessor, ApplicationListener
 {
-	private Board board;
-	private Player player1;
-	private Player player2;
-
+	GameMaster game;
+	GraphicsMaster graphicsMaster;
 	ShapeRenderer strikeThrough;
 	// camera and spritebatch
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 
-	private float posX, posY;
+
 
 
 	@Override
@@ -31,13 +29,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 	{
 
 		batch = new SpriteBatch();
-		board = new Board();
-		player1 = new Player("x", PLAYER_ID.PLAYER_ONE);
-		player2 = new Player("o",  PLAYER_ID.PLAYER_TWO);
-
-		posX = 0;
-		posY = 0;
-
+		game = new GameMaster();
+		graphicsMaster = new GraphicsMaster();
 		strikeThrough = new ShapeRenderer();
 
 		// create the camera
@@ -45,9 +38,6 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		camera.setToOrtho(false, 800, 480);
 
 		Gdx.input.setInputProcessor(this);
-
-		for(Map.Entry<Integer, BoardPiece> entry : board.getBoardMap().entrySet())
-			System.out.println(entry.getKey() + " " + entry.getValue().getBoardPieceName());
 
 	}
 
@@ -60,38 +50,29 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
-		if(Gdx.input.isTouched())
-		{
-			if(isValidMove(board.getBoardPiece(posX, posY)))
-				player1.makeMove(board.getBoardPiece(posX, posY));
-
-		}
+		game.play();
 
 		batch.begin();
-		board.drawBoard(batch);
-		player1.drawPieces(batch);
+		game.draw(batch);
+		if(game.isTie())
+		{
+			game.tieSequence(graphicsMaster, batch);
+		}
 		batch.end();
 
-		if(isWinningPlay(board))
+		if(game.isOver())
 		{
-			strikeThrough.begin(ShapeRenderer.ShapeType.Line);
-			strikeThrough.setColor(1, 0, 0, 1); // red line
-			strikeThrough.line
-					(
-					getWinningPieces().get(0).getX() + 32f,
-					getWinningPieces().get(0).getY() + 32f,
-					getWinningPieces().get(2).getX() + 32f,
-					getWinningPieces().get(2).getY() + 32f
-					);
-			strikeThrough.end();
+			game.winningSequence(graphicsMaster);
 		}
+
 
 	}
 	@Override
 	public void dispose()
 	{
-		player1.disposePieceAtlas();
-		player2.disposePieceAtlas();
+		game.getPlayer1().disposePieceAtlas();
+		game.getPlayer2().disposePieceAtlas();
+		game.getBoard().dispose();
 		strikeThrough.dispose();
 		batch.dispose();
 	}
@@ -121,8 +102,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 	{
 		if(button == Input.Buttons.LEFT)
 		{
-			posX = (float)screenX;
-			posY = (float)(Gdx.graphics.getHeight() - screenY);
+			game.setPosX((float)screenX);
+			game.setPosY((float)(Gdx.graphics.getHeight() - screenY));
 		}
 
 		return false;

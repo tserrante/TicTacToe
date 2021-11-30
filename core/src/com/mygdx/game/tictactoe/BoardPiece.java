@@ -2,18 +2,21 @@ package com.mygdx.game.tictactoe;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 
 public class BoardPiece extends Sprite implements Comparable<BoardPiece>
 {
 
     private final String boardPieceName;
     private PLAYER_ID pieceState; // tracks who is on the piece
+    private Vector2 winLineVector;
 
     BoardPiece(TextureAtlas.AtlasRegion region, String boardPieceName )
     {
         super(region);
         this.boardPieceName = boardPieceName;
         pieceState = PLAYER_ID.NO_PLAYER;
+
     }
 
 
