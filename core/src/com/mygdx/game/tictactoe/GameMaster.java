@@ -10,7 +10,7 @@ public class GameMaster
     private final Board board;
     private final Player player1;
     private final Player player2;
-
+    private GraphicsController graphicsController;
     private float posX, posY;
 
     public GameMaster()
@@ -19,12 +19,12 @@ public class GameMaster
         board.setupBoardPieces();
         player1 = new Player("x", PLAYER_ID.PLAYER_ONE);
         player2 = new Player("o",  PLAYER_ID.PLAYER_TWO);
-
+        graphicsController = new GraphicsController();
         posX = 0;
         posY = 0;
     }
 
-    public void play()
+    public void playOneRound()
     {
         if(Gdx.input.isTouched())
         {
@@ -53,10 +53,10 @@ public class GameMaster
         return isWinningPlay(board);
     }
 
-    public void winningSequence(GraphicsMaster g)
+    public void winningSequence()
     {
-        g.setDrawPoints(Referee.getWinningPieces(), Referee.getWinType());
-        g.drawWinningLine();
+        graphicsController.setDrawPoints(Referee.getWinningPieces(), Referee.getWinType());
+        graphicsController.drawWinningLine();
     }
 
     public boolean isTie()
@@ -64,16 +64,28 @@ public class GameMaster
         return board.isBoardFull();
     }
 
-    public void tieSequence(GraphicsMaster graphicsMaster, Batch batch)
+    public void tieSequence(Batch batch)
     {
-        graphicsMaster.writeTieMessage(batch);
+        graphicsController.writeTieMessage(batch);
     }
 
-    public void draw(Batch batch)
+    public void drawOneRound(Batch batch)
     {
+        batch.begin();
         board.drawBoard(batch);
         player1.drawPieces(batch);
         player2.drawPieces(batch);
+        if(isTie())
+        {
+            tieSequence(batch);
+        }
+        batch.end();
+
+        if(isOver())
+        {
+            winningSequence();
+        }
+
     }
 
 

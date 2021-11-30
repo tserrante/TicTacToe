@@ -7,22 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import java.util.Map;
-
-import static com.mygdx.game.tictactoe.Referee.*;
-
 
 public class TicTacToe extends Game implements InputProcessor, ApplicationListener
 {
 	GameMaster game;
-	GraphicsMaster graphicsMaster;
-	ShapeRenderer strikeThrough;
 	// camera and spritebatch
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-
-
-
 
 	@Override
 	public void create()
@@ -30,10 +21,7 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 
 		batch = new SpriteBatch();
 		game = new GameMaster();
-		graphicsMaster = new GraphicsMaster();
-		strikeThrough = new ShapeRenderer();
-
-		// create the camera
+				// create the camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 
@@ -50,21 +38,8 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
-		game.play();
-
-		batch.begin();
-		game.draw(batch);
-		if(game.isTie())
-		{
-			game.tieSequence(graphicsMaster, batch);
-		}
-		batch.end();
-
-		if(game.isOver())
-		{
-			game.winningSequence(graphicsMaster);
-		}
-
+		game.playOneRound();
+		game.drawOneRound(batch);
 
 	}
 	@Override
@@ -73,7 +48,6 @@ public class TicTacToe extends Game implements InputProcessor, ApplicationListen
 		game.getPlayer1().disposePieceAtlas();
 		game.getPlayer2().disposePieceAtlas();
 		game.getBoard().dispose();
-		strikeThrough.dispose();
 		batch.dispose();
 	}
 	@Override

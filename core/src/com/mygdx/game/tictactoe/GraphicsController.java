@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.List;
 
-public class GraphicsMaster
+public class GraphicsController
 {
     // for drawing winning line
     private static ShapeRenderer winningLine;
@@ -22,7 +22,7 @@ public class GraphicsMaster
     private BitmapFont font;
     private LabelStyle style;
 
-    public GraphicsMaster()
+    public GraphicsController()
     {
         winningLine = new ShapeRenderer();
 
